@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 class Buttons extends StatelessWidget {
   final void Function()? onPressed;
@@ -16,7 +16,7 @@ class Buttons extends StatelessWidget {
         textStyle: const TextStyle(
             color: Colors.black, fontSize: 20, fontStyle: FontStyle.normal),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(text),
     );
   }

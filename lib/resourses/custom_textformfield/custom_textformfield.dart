@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:google_fonts/google_fonts.dart';
+
+
 // import 'color.dart';
 
 // ignore: must_be_immutable
@@ -67,7 +68,7 @@ class CustomTextFormField extends StatelessWidget {
     this.contentPaddingVertical = 15.0,
     this.styleFontSize = 15,
     this.onSaved,
-    this.focusedboderColor =const Color(0xff4F7B39),
+    this.focusedboderColor = const Color(0xff4F7B39),
     this.errorColor = Colors.red,
     this.showCounter = false,
     this.weight,
