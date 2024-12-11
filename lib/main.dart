@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:persons_details_app/provider/provider.dart';
-import 'package:persons_details_app/database/sqflite.dart';
-
 import 'package:persons_details_app/view/listofpersons_details.dart';
-
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -28,7 +24,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: ListofpersonsDetails(),
+          home: const ListofpersonsDetails(),
         ));
   }
 }
