@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import 'package:persons_details_app/provider/provider.dart';
-
 import 'package:persons_details_app/resourses/customtext/customtext.dart';
 import 'package:persons_details_app/view/persons_details_fillingform.dart';
 import 'package:provider/provider.dart';
