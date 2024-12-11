@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+
+import 'package:persons_details_app/provider/provider.dart';
+import 'package:persons_details_app/database/sqflite.dart';
+
 import 'package:persons_details_app/view/listofpersons_details.dart';
 
-import 'package:persons_details_app/view/persons_details_fillingform.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -15,14 +19,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: ListofpersonsDetails(),
-    );
+    return ChangeNotifierProvider<PersonDetailsFillingPrivider>(
+        create: (context) => PersonDetailsFillingPrivider(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: ListofpersonsDetails(),
+        ));
   }
 }
