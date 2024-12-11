@@ -17,14 +17,13 @@ class SelectLang extends StatelessWidget {
     showDialog(
         context: context,
         builder: (builder) {
-          return Container(
-            height: 100,
-            child: AlertDialog(
-              title: Center(child: Text("Choose the language")),
-              content: InkWell(
-                onTap: () {
-                  Get.back();
-                },
+          return AlertDialog(
+            title: Center(child: Text("Choose the language")),
+            content: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: SizedBox(
                 child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (BuildContext ctx, index) {
