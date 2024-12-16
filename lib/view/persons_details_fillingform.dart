@@ -9,7 +9,14 @@ import 'package:persons_details_app/view/listofpersons_details.dart';
 import 'package:provider/provider.dart';
 
 class Fillingtheform extends StatefulWidget {
-  const Fillingtheform({super.key});
+  const Fillingtheform({
+    super.key,
+    this.isedit = false,
+    this.id,
+  });
+
+  final bool isedit;
+  final int? id;
 
   @override
   State<Fillingtheform> createState() => _FillingtheformState();
@@ -17,6 +24,7 @@ class Fillingtheform extends StatefulWidget {
 
 class _FillingtheformState extends State<Fillingtheform> {
   final key = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -176,22 +184,33 @@ class _FillingtheformState extends State<Fillingtheform> {
                       height: 10,
                     ),
                     Buttons(
-                      text: 'save',
-                      onPressed: () {
+                      text: widget.isedit ? "Update" : 'save',
+                      onPressed: () async{
                         print("object");
+
                         if (key.currentState!.validate()) {
                           if (value.selectedImage.isEmpty) {
                             print("uplod img");
 
                             showCustomSnackbar(context);
                           } else {
-                            value.addContact((Models(
-                              id: DateTime.now().millisecondsSinceEpoch,
-                              name: value.namecontroller.text,
-                              email: value.emailcontroller.text,
-                              phonenumber: value.phonebumbercontroller.text,
-                              image: value.selectedImage,
-                            )));
+                            if (widget.isedit == true) {
+                             await value.updateContact(Models(
+                                id: widget.id,
+                                name: value.namecontroller.text,
+                                email: value.emailcontroller.text,
+                                phonenumber: value.phonebumbercontroller.text,
+                                image: value.selectedImage,
+                              ));
+                            } else {
+                             await value.addContact((Models(
+                                id: DateTime.now().millisecondsSinceEpoch,
+                                name: value.namecontroller.text,
+                                email: value.emailcontroller.text,
+                                phonenumber: value.phonebumbercontroller.text,
+                                image: value.selectedImage,
+                              )));
+                            }
 
                             Navigator.pushAndRemoveUntil(
                               context,

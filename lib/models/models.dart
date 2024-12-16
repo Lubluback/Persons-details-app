@@ -4,19 +4,17 @@ class Models {
   final String phonenumber;
   final String email;
 
-
   final String image;
 
   Models({
     this.id,
     required this.image,
     required this.email,
- 
     required this.name,
     required this.phonenumber,
   });
 
-   Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
@@ -33,9 +31,10 @@ class Models {
       email: map['email'],
       phonenumber: map['phone'],
       image: map['imagePath'],
-    
     );
   }
+  @override
+  String toString() {
+    return "$id $name $email $phonenumber $image";
+  }
 }
-
-

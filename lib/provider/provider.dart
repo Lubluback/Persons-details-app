@@ -37,6 +37,7 @@ class PersonDetailsFillingPrivider extends ChangeNotifier {
       await loadContacts();
     }
   }
+  
 
   Future<void> deleteContact(int id) async {
     await _dbHelper.deleteContact(id);
@@ -75,6 +76,14 @@ class PersonDetailsFillingPrivider extends ChangeNotifier {
     emailcontroller.clear();
     phonebumbercontroller.clear();
     _selectedImage = '';
+    notifyListeners();
+  }
+
+  passingController(Models model) {
+    namecontroller.text = model.name;
+    phonebumbercontroller.text = model.phonenumber;
+    emailcontroller.text = model.email;
+    _selectedImage = model.image;
     notifyListeners();
   }
 }

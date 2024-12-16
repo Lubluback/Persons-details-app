@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:persons_details_app/provider/provider.dart';
 import 'package:persons_details_app/resourses/customtext/customtext.dart';
 import 'package:persons_details_app/view/persons_details_fillingform.dart';
@@ -29,8 +31,10 @@ class _ListofpersonsDetailsState extends State<ListofpersonsDetails> {
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: const Color(0xff4F7B39),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (ctx) => Fillingtheform()));
+            Provider.of<PersonDetailsFillingPrivider>(context, listen: false)
+                .clearController();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (ctx) => const Fillingtheform()));
           },
           label: const Text("Add"),
         ),
@@ -44,30 +48,65 @@ class _ListofpersonsDetailsState extends State<ListofpersonsDetails> {
                   ),
               itemBuilder: (ctx, index) {
                 final data = value.data[index];
-                return Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Customtext(text: "NAME: ${data.name}"),
-                              Customtext(
-                                  text: "PHONE NUMBER: ${data.phonenumber}"),
-                              Customtext(text: "EMAIL: ${data.email}"),
-                              // Customtext(
-                              //     text: "OCCUPATION: ${data.occupation}"),
-                              // Customtext(text: "CITY: ${data.country}"),
-                              // Customtext(text: "STATE: ${data.state}"),
-                            ]),
-                      ),
-                      CircleAvatar(
-                          radius: 35,
-                          backgroundImage: FileImage(File(data.image)))
-                    ],
+                return Slidable(
+                  key: Key("${data.id}"),
+                  startActionPane:
+                      ActionPane(motion: const ScrollMotion(), children: [
+                    SlidableAction(
+                      onPressed: (ctx) {
+                        value.deleteContact(data.id!);
+                      },
+                      backgroundColor: const Color(0xff4F7B39),
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      label: 'Delete',
+                    )
+                  ]),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Customtext(text: "NAME: ${data.name}"),
+                                Customtext(
+                                    text: "PHONE NUMBER: ${data.phonenumber}"),
+                                Customtext(text: "EMAIL: ${data.email}"),
+                                // Customtext(
+                                //     text: "OCCUPATION: ${data.occupation}"),
+                                // Customtext(text: "CITY: ${data.country}"),
+                                // Customtext(text: "STATE: ${data.state}"),
+                              ]),
+                        ),
+                        Column(
+                          children: [
+                            CircleAvatar(
+                                radius: 35,
+                                backgroundImage: FileImage(File(data.image))),
+                            TextButton(
+                                onPressed: () {
+                                  log("${data}");
+                                  value.passingController(data);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (ctx) => Fillingtheform(
+                                                isedit: true,
+                                                id: data.id,
+                                              )));
+                                },
+                                child: const Text(
+                                  "Edit",
+                                  style: TextStyle(color: Color(0xff4F7B39)),
+                                ))
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               });
